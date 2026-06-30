@@ -257,3 +257,14 @@ p{margin:0 0 1rem}
 .logostrip span{font-weight:700;color:var(--muted);font-size:1.05rem;letter-spacing:.02em}
 .sectionhead{max-width:640px}
 .center .sectionhead{margin-inline:auto}
+
+/* ===== contrast fixes ===== */
+/* cards always keep dark text, even inside dark sections */
+.card{color:var(--ink)}
+.card h3{color:var(--ink)}
+/* readable ticks + stats when placed DIRECTLY on a dark section */
+.section--deep .ticks li{color:#eaf5ec}
+.section--deep .stat{color:#fff}
+.section--deep .stat span{color:#cfe4d4}
+/* but ticks inside a card stay dark (placed after, wins by source order) */
+.card .ticks li{color:var(--ink)}

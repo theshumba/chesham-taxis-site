@@ -111,7 +111,20 @@ def head(title, desc, slug):
 <script type="application/ld+json">{{"@context":"https://schema.org","@type":"TaxiService","name":"Chesham Taxis","areaServed":"Chesham, Buckinghamshire","telephone":"{PHONE_TEL}","email":"{EMAIL}","url":"https://cheshamtaxis.co.uk","availableLanguage":"English"}}</script>
 </head><body>'''
 
+def build_home():
+    cpath=os.path.join(ROOT,"content","index.html")
+    if not os.path.exists(cpath):
+        print("  SKIP index (no content)"); return
+    main=open(cpath,encoding="utf-8").read().strip()
+    title="Chesham Taxis — Local Taxis &amp; Airport Transfers in Chesham"
+    desc="Friendly, reliable 24/7 taxis across Chesham, Amersham and the Chilterns. Fixed fares, airport transfers, local rides and executive cars. Call 01494 000000."
+    h=head(title,desc,"index").replace(f"<title>{title} · Chesham Taxis</title>", f"<title>{title}</title>")
+    html=h+nav("home")+"\n"+main+"\n"+footer()+SCRIPTS+"\n</body></html>"
+    open(os.path.join(ROOT,"index.html"),"w",encoding="utf-8").write(html)
+    print(f"  built index.html ({len(html)//1024}kb)")
+
 def build():
+    build_home()
     cdir=os.path.join(ROOT,"content")
     built=[]
     for slug,(title,desc,active) in PAGES.items():

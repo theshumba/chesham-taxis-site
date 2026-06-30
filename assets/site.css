@@ -233,3 +233,27 @@ p{margin:0 0 1rem}
 .nav-mobile a{display:block;color:#d7eadc;padding:14px 24px;border-bottom:1px solid rgba(255,255,255,.06);font-weight:500}
 .nav-mobile a:hover{background:rgba(255,255,255,.06);color:#fff}
 .nav-mobile .btn{margin:16px 24px;width:calc(100% - 48px)}
+
+/* ===== HOMEPAGE components ===== */
+.hero-card{background:#fff;border-radius:22px;overflow:hidden;box-shadow:var(--shadow-lg);max-width:460px;margin-left:auto}
+.hero-card .ph{aspect-ratio:16/10;overflow:hidden;background:var(--mint)}
+.hero-card .ph img{width:100%;height:100%;object-fit:cover}
+.hero-card .bd{padding:22px 22px 24px}
+.hero-card h3{font-size:1.15rem;margin:0 0 6px;color:var(--ink)}
+.hero-card p{color:var(--muted);font-size:.95rem;margin:0}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.chip-ic{display:inline-flex;align-items:center;gap:7px;background:var(--mint-soft);color:var(--green-700);
+  font-weight:600;font-size:.85rem;padding:9px 13px;border-radius:11px;border:1px solid var(--line)}
+.ratingline{display:flex;align-items:center;gap:12px;margin-top:26px;color:#cfe4d4;font-size:.95rem}
+.ratingline .stars{color:#FFB020;letter-spacing:2px;font-size:1.05rem}
+.fleet-card .carimg{height:150px;display:grid;place-items:center;margin-bottom:6px}
+.fleet-card .carimg img{max-height:100%;width:auto;filter:drop-shadow(0 14px 18px rgba(20,40,26,.14))}
+.panel-dark{background:radial-gradient(120% 140% at 8% 0%,#2a5d35,var(--green-deep));color:#fff;
+  border-radius:28px;padding:clamp(32px,5vw,56px);box-shadow:var(--shadow-lg);overflow:hidden}
+.panel-dark h2{color:#fff}.panel-dark p{color:#c4dccb}
+.panel-dark .ticks li{color:#eaf5ec}
+.panel-dark .ticks li::before{background:var(--green-600) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/14px no-repeat}
+.logostrip{display:flex;gap:38px;flex-wrap:wrap;align-items:center;justify-content:center;opacity:.85}
+.logostrip span{font-weight:700;color:var(--muted);font-size:1.05rem;letter-spacing:.02em}
+.sectionhead{max-width:640px}
+.center .sectionhead{margin-inline:auto}

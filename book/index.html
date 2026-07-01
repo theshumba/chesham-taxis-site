@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#1a6f31" />
+<title>Chesham Taxis — Book a ride</title>
+<meta name="description" content="Go anywhere with Chesham Taxis — Buckinghamshire's licensed taxi service." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<div class="stage">
+  <aside class="stage__brand" aria-hidden="false">
+    <a class="stage__back" href="../index.html">
+      <svg viewBox="0 0 24 24" width="18" height="18"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to cheshamtaxis.co.uk
+    </a>
+    <div class="stage__brandmark">
+      <span class="stage__kite"><svg viewBox="0 0 32 34" width="30" height="32"><path d="M16 1 L29 14 L16 23 L3 14 Z" fill="#DF450F"/><path d="M16 23 L12.5 33 M16 23 L19.5 32" stroke="#DF450F" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+      <span class="stage__word">Chesham Taxis</span>
+    </div>
+    <h2 class="stage__headline">Book your Chiltern taxi<br />in under a minute.</h2>
+    <p class="stage__lead">Licensed local drivers, fixed airport fares, and 24/7 cover across Chesham, Amersham &amp; the Chilterns.</p>
+    <ul class="stage__points">
+      <li><span class="stage__tick" aria-hidden="true"></span> Instant fare estimate — no account needed to price a trip</li>
+      <li><span class="stage__tick" aria-hidden="true"></span> Fixed fares to Heathrow, Gatwick &amp; Luton</li>
+      <li><span class="stage__tick" aria-hidden="true"></span> Track your driver in real time</li>
+    </ul>
+    <p class="stage__foot">Prefer to talk? <a href="../contact-us.html">Call or message us</a>.</p>
+  </aside>
+  <div class="device">
+  <div class="app" id="app">
+
+    <!-- ============ SCREEN: LANDING ============ -->
+    <section class="screen is-active" data-screen="landing">
+      <header class="topbar topbar--landing">
+        <a class="brand" href="../index.html" aria-label="Back to Chesham Taxis home">
+          <span class="brand__kite" aria-hidden="true">
+            <svg viewBox="0 0 32 34" width="20" height="21"><path d="M16 1 L29 14 L16 23 L3 14 Z" fill="#df4510"/><path d="M16 23 L12.5 33 M16 23 L19.5 32" stroke="#df4510" stroke-width="1.6" stroke-linecap="round"/></svg>
+          </span>
+          <span class="brand__word">Chesham Taxis</span>
+        </a>
+        <div class="topbar__actions">
+          <button class="linkbtn" data-goto="auth" data-mode="login">Log in</button>
+          <button class="btn btn--primary btn--sm" data-goto="auth" data-mode="signup">Sign up</button>
+        </div>
+      </header>
+
+      <main class="landing scroll">
+        <h1 class="display">Go anywhere with<br />Chesham Taxis</h1>
+
+        <div class="tabs" role="tablist" aria-label="Service type">
+          <button class="tab is-selected" role="tab" aria-selected="true" data-tab="ride">
+            <svg class="tab__ic" viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M5 11l1.5-4.5A2 2 0 0 1 8.4 5h7.2a2 2 0 0 1 1.9 1.5L19 11m-14 0h14m-14 0a2 2 0 0 0-2 2v3h2m14-5a2 2 0 0 1 2 2v3h-2M6 16h12M7 16v2M17 16v2"/></svg>
+            Ride
+          </button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="reserve">
+            <svg class="tab__ic" viewBox="0 0 24 24" width="20" height="20"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+            Reserve
+          </button>
+        </div>
+
+        <div class="route">
+          <div class="route__line" aria-hidden="true"></div>
+          <label class="field field--route">
+            <span class="dot dot--from" aria-hidden="true"></span>
+            <input type="text" placeholder="Pickup location" value="Chesham Broadway" aria-label="Pickup location" />
+            <button class="field__icon" aria-label="Use my location" data-locate>
+              <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 2l9 4.5-9 15-2.6-7.9L2 10z"/></svg>
+            </button>
+          </label>
+          <label class="field field--route">
+            <span class="dot dot--to" aria-hidden="true"></span>
+            <input type="text" placeholder="Dropoff location" aria-label="Dropoff location" />
+          </label>
+        </div>
+
+        <div class="grid-2">
+          <label class="field">
+            <svg class="field__lead" viewBox="0 0 24 24" width="18" height="18"><rect x="3.5" y="5" width="17" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 9.5h17M8 3.5v3M16 3.5v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <input type="text" value="Today" aria-label="Pickup date" readonly />
+          </label>
+          <label class="field field--select">
+            <svg class="field__lead" viewBox="0 0 24 24" width="18" height="18"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            <input type="text" value="Now" aria-label="Pickup time" readonly />
+            <svg class="field__chev" viewBox="0 0 24 24" width="18" height="18"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </label>
+        </div>
+
+        <button class="btn btn--primary btn--block" data-goto="auth" data-mode="signup">See prices</button>
+        <button class="linkbtn linkbtn--accent linkbtn--center" data-goto="auth" data-mode="login">Log in to see your recent activity</button>
+
+        <div class="map-card" id="map-landing"></div>
+
+        <h2 class="section-title">Suggestions</h2>
+        <div class="suggestions scroll-x">
+          <article class="sugg">
+            <div class="sugg__body">
+              <h3>Reserve</h3>
+              <p>Book your taxi in advance so it's ready when you are.</p>
+            </div>
+            <div class="sugg__art sugg__art--reserve" aria-hidden="true">
+              <svg viewBox="0 0 64 64" width="60" height="60"><rect x="10" y="14" width="44" height="38" rx="5" fill="#e7f2ea"/><rect x="10" y="14" width="44" height="10" rx="5" fill="#1a6f31"/><circle cx="32" cy="38" r="9" fill="none" stroke="#1a6f31" stroke-width="3"/><path d="M32 33v5l3 2" stroke="#df4510" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+            </div>
+          </article>
+          <article class="sugg">
+            <div class="sugg__body">
+              <h3>Airport runs</h3>
+              <p>Fixed fares to Heathrow, Gatwick &amp; Luton.</p>
+            </div>
+            <div class="sugg__art sugg__art--airport" aria-hidden="true">
+              <svg viewBox="0 0 64 64" width="60" height="60"><path d="M6 40l52-16-6 34-12-10-10 8-2-12z" fill="#e7f2ea"/><path d="M6 40l52-16-32 26z" fill="#1a6f31"/><circle cx="47" cy="21" r="4" fill="#df4510"/></svg>
+            </div>
+          </article>
+        </div>
+      </main>
+    </section>
+
+    <!-- ============ SCREEN: AUTH (phone/email) ============ -->
+    <section class="screen wizard" data-screen="auth">
+      <header class="topbar topbar--wizard">
+        <span class="brand brand--sm">
+          <span class="brand__kite"><svg viewBox="0 0 32 34" width="17" height="18"><path d="M16 1 L29 14 L16 23 L3 14 Z" fill="#df4510"/><path d="M16 23 L12.5 33 M16 23 L19.5 32" stroke="#df4510" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+          <span class="brand__word">Chesham Taxis</span>
+        </span>
+      </header>
+      <main class="wizard__body scroll">
+        <h1 class="headline">What's your mobile number or email?</h1>
+        <label class="field field--lg" id="auth-field">
+          <input type="text" id="auth-input" placeholder="Enter mobile number or email" autocomplete="username" />
+        </label>
+        <p class="field-error" id="auth-error" hidden></p>
+
+        <button class="btn btn--primary btn--block" id="auth-continue">Continue</button>
+
+        <div class="divider"><span>or</span></div>
+
+        <button class="btn btn--soft btn--block btn--icon">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#EA4335" d="M12 10.2v3.9h5.5c-.24 1.4-1 2.6-2.1 3.4l3.4 2.6c2-1.85 3.15-4.6 3.15-7.85 0-.76-.07-1.5-.2-2.2z"/><path fill="#4285F4" d="M12 22c2.85 0 5.24-.94 6.99-2.55l-3.4-2.6c-.94.63-2.15 1-3.59 1-2.76 0-5.1-1.86-5.93-4.37l-3.5 2.7C1.8 19.6 5.6 22 12 22z"/><path fill="#FBBC05" d="M6.07 13.48A6 6 0 0 1 5.75 12c0-.51.09-1.01.24-1.48l-3.5-2.7A10 10 0 0 0 2 12c0 1.6.38 3.1 1.06 4.42z"/><path fill="#34A853" d="M12 5.5c1.55 0 2.95.53 4.05 1.58l3-3C17.24 2.2 14.85 1.2 12 1.2 5.6 1.2 1.8 3.6.99 7.82l3.5 2.7C6.9 7.36 9.24 5.5 12 5.5z"/></svg>
+          Continue with Google
+        </button>
+        <button class="btn btn--soft btn--block btn--icon">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#000" d="M16.4 12.9c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.15-2.8.85-3.5.85-.7 0-1.9-.83-3.1-.8-1.6.02-3 .93-3.8 2.36-1.63 2.83-.42 7 1.16 9.3.77 1.12 1.7 2.38 2.9 2.33 1.16-.05 1.6-.75 3-.75s1.8.75 3 .73c1.24-.02 2.03-1.14 2.8-2.27.88-1.3 1.24-2.56 1.26-2.63-.03-.01-2.42-.93-2.44-3.66z"/><path fill="#000" d="M14.1 5.9c.64-.78 1.07-1.86.95-2.94-.92.04-2.03.61-2.69 1.39-.59.69-1.11 1.79-.97 2.85 1.02.08 2.07-.52 2.71-1.3z"/></svg>
+          Continue with Apple
+        </button>
+
+        <div class="divider"><span>or</span></div>
+
+        <button class="btn btn--soft btn--block btn--icon">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM16 14h4M14 16v4M18 18h2v2h-2z"/></svg>
+          Log in with QR code
+        </button>
+
+        <p class="fineprint">By proceeding, you consent to get calls, WhatsApp or SMS messages, including by automated means, from Chesham Taxis and its affiliates to the number provided.</p>
+      </main>
+    </section>
+
+    <!-- ============ SCREEN: OTP ============ -->
+    <section class="screen wizard" data-screen="otp">
+      <header class="topbar topbar--wizard">
+        <span class="brand brand--sm"><span class="brand__kite"><svg viewBox="0 0 32 34" width="17" height="18"><path d="M16 1 L29 14 L16 23 L3 14 Z" fill="#df4510"/><path d="M16 23 L12.5 33 M16 23 L19.5 32" stroke="#df4510" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="brand__word">Chesham Taxis</span></span>
+      </header>
+      <main class="wizard__body scroll">
+        <h1 class="headline">Enter the 4-digit code sent to you at:<br /><span class="headline__hl" id="otp-target">your email</span></h1>
+        <div class="otp" id="otp-inputs">
+          <input class="otp__box" inputmode="numeric" maxlength="1" aria-label="Digit 1" />
+          <input class="otp__box" inputmode="numeric" maxlength="1" aria-label="Digit 2" />
+          <input class="otp__box" inputmode="numeric" maxlength="1" aria-label="Digit 3" />
+          <input class="otp__box" inputmode="numeric" maxlength="1" aria-label="Digit 4" />
+        </div>
+        <p class="field-error" id="otp-error" hidden>The code you've entered is incorrect.</p>
+        <p class="hint">Tip: make sure to check your inbox and spam folders. <span class="hint__demo">Demo code: 1234</span></p>
+        <button class="pill-btn" id="otp-resend">Resend</button>
+        <div class="wizard__nav">
+          <button class="nav-round" data-back aria-label="Back">
+            <svg viewBox="0 0 24 24" width="22" height="22"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="btn btn--primary btn--next" id="otp-next" disabled>Next
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </main>
+    </section>
+
+    <!-- ============ SCREEN: ADD MOBILE ============ -->
+    <section class="screen wizard" data-screen="mobile">
+      <header class="topbar topbar--wizard">
+        <span class="brand brand--sm"><span class="brand__kite"><svg viewBox="0 0 32 34" width="17" height="18"><path d="M16 1 L29 14 L16 23 L3 14 Z" fill="#df4510"/><path d="M16 23 L12.5 33 M16 23 L19.5 32" stroke="#df4510" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="brand__word">Chesham Taxis</span></span>
+      </header>
+      <main class="wizard__body scroll">
+        <h1 class="headline">Enter your mobile number <span class="headline__mute">(Optional)</span></h1>
+        <p class="sub">Add your mobile to aid in account recovery.</p>
+        <span class="label">Mobile</span>
+        <div class="phone-row">
+          <button class="phone-cc" type="button">🇬🇧 +44 <svg viewBox="0 0 24 24" width="14" height="14"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <input class="field field--flat" type="tel" placeholder="7700 900123" aria-label="Mobile number" />
+        </div>
+        <button class="pill-btn" data-goto="name">Skip</button>
+        <div class="wizard__nav">
+          <button class="nav-round" data-back aria-label="Back"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="btn btn--primary btn--next" data-goto="name">Next
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </main>
+    </section>
+
+    <!-- ============ SCREEN: NAME ============ -->
+    <section class="screen wizard" data-screen="name">
+      <header class="topbar topbar--wizard">
+        <span class="brand brand--sm"><span class="brand__kite"><svg viewBox="0 0 32 34" width="17" height="18"><path d="M16 1 L29 14 L16 23 L3 14 Z" fill="#df4510"/><path d="M16 23 L12.5 33 M16 23 L19.5 32" stroke="#df4510" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="brand__word">Chesham Taxis</span></span>
+      </header>
+      <main class="wizard__body scroll">
+        <h1 class="headline">What's your name?</h1>
+        <p class="sub">Let us know how to properly address you.</p>
+        <span class="label">First name</span>
+        <label class="field field--lg"><input type="text" id="name-first" placeholder="Enter first name" autocomplete="given-name" /></label>
+        <span class="label">Last name</span>
+        <label class="field field--lg"><input type="text" id="name-last" placeholder="Enter last name" autocomplete="family-name" /></label>
+        <div class="wizard__nav">
+          <button class="nav-round" data-back aria-label="Back"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="btn btn--primary btn--next" id="name-next" disabled>Next
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </main>
+    </section>
+
+    <!-- ============ SCREEN: TERMS ============ -->
+    <section class="screen wizard" data-screen="terms">
+      <header class="topbar topbar--wizard">
+        <span class="brand brand--sm"><span class="brand__kite"><svg viewBox="0 0 32 34" width="17" height="18"><path d="M16 1 L29 14 L16 23 L3 14 Z" fill="#df4510"/><path d="M16 23 L12.5 33 M16 23 L19.5 32" stroke="#df4510" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="brand__word">Chesham Taxis</span></span>
+      </header>
+      <main class="wizard__body scroll">
+        <h1 class="headline">Accept Chesham Taxis' Terms &amp; Review Privacy Notice</h1>
+        <p class="sub">By selecting "I Agree" below, I have reviewed and agree to the <a href="#" class="link">Terms of Use</a> and acknowledge the <a href="#" class="link">Privacy Notice</a>. I am at least 18 years of age.</p>
+        <div class="agree-row">
+          <span>I Agree</span>
+          <label class="check"><input type="checkbox" id="terms-check" /><span class="check__box"></span></label>
+        </div>
+        <div class="wizard__nav">
+          <button class="nav-round" data-back aria-label="Back"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button class="btn btn--primary btn--next" id="terms-next" disabled>Next
+            <svg viewBox="0 0 24 24" width="18" height="18"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </main>
+    </section>
+
+    <!-- ============ SCREEN: RIDE HOME (logged in) ============ -->
+    <section class="screen" data-screen="ride">
+      <header class="topbar topbar--home">
+        <span class="brand brand--sm"><span class="brand__kite"><svg viewBox="0 0 32 34" width="17" height="18"><path d="M16 1 L29 14 L16 23 L3 14 Z" fill="#df4510"/><path d="M16 23 L12.5 33 M16 23 L19.5 32" stroke="#df4510" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="brand__word">Chesham Taxis</span></span>
+        <div class="topbar__actions">
+          <button class="chip" data-goto="account"><svg viewBox="0 0 24 24" width="16" height="16"><rect x="4" y="5" width="16" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M4 9h16" stroke="currentColor" stroke-width="1.7"/></svg>Activity</button>
+          <button class="avatar" data-goto="account" aria-label="Account">AS</button>
+        </div>
+      </header>
+      <div class="ride-map" id="map-ride"></div>
+      <div class="sheet">
+        <div class="sheet__grip" aria-hidden="true"></div>
+        <h2 class="sheet__title">Get a ride</h2>
+        <div class="route route--tight">
+          <div class="route__line" aria-hidden="true"></div>
+          <label class="field field--route"><span class="dot dot--from"></span><input type="text" placeholder="Pickup location" value="Chesham Broadway" /></label>
+          <label class="field field--route"><span class="dot dot--to"></span><input type="text" placeholder="Dropoff location" /><button class="field__icon" aria-label="Add stop"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></label>
+        </div>
+        <div class="pickup-row">
+          <button class="chip chip--wide"><svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Pickup now <svg viewBox="0 0 24 24" width="14" height="14"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+          <button class="chip"><svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M5 20a7 7 0 0 1 14 0" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>For me <svg viewBox="0 0 24 24" width="14" height="14"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+        </div>
+        <button class="btn btn--primary btn--block" id="ride-search">Search</button>
+      </div>
+    </section>
+
+    <!-- ============ SCREEN: ACCOUNT HOME ============ -->
+    <section class="screen" data-screen="account">
+      <header class="topbar topbar--home">
+        <span class="brand brand--sm"><span class="brand__kite"><svg viewBox="0 0 32 34" width="17" height="18"><path d="M16 1 L29 14 L16 23 L3 14 Z" fill="#df4510"/><path d="M16 23 L12.5 33 M16 23 L19.5 32" stroke="#df4510" stroke-width="1.6" stroke-linecap="round"/></svg></span><span class="brand__word">Chesham Taxis</span></span>
+        <div class="topbar__actions">
+          <button class="avatar" id="account-avatar" aria-label="Account">AS</button>
+        </div>
+      </header>
+      <main class="account scroll">
+        <div class="welcome">
+          <span class="welcome__hi">Welcome back, <strong id="welcome-name">Alex Smith</strong></span>
+          <span class="welcome__sub">You have no upcoming trips</span>
+        </div>
+
+        <h1 class="display display--sm">Request a ride</h1>
+        <div class="route route--tight">
+          <div class="route__line" aria-hidden="true"></div>
+          <label class="field field--route"><span class="dot dot--from"></span><input type="text" placeholder="Enter location" /><button class="field__icon" aria-label="Use my location"><svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 2l9 4.5-9 15-2.6-7.9L2 10z"/></svg></button></label>
+          <label class="field field--route"><span class="dot dot--to"></span><input type="text" placeholder="Enter destination" /></label>
+        </div>
+        <button class="btn btn--primary btn--block" data-goto="ride">See prices</button>
+
+        <h2 class="section-title">Your account &amp; activity</h2>
+        <div class="activity">
+          <div class="activity__map" id="map-activity"></div>
+          <div class="trip">
+            <div class="trip__ic"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#1a6f31" d="M5 11l1.4-4A2 2 0 0 1 8.3 5.6h7.4A2 2 0 0 1 17.6 7L19 11a2 2 0 0 1 2 2v3h-2v2h-2v-2H7v2H5v-2H3v-3a2 2 0 0 1 2-2z"/></svg></div>
+            <div class="trip__meta">
+              <strong>The Elgiva Theatre</strong>
+              <span>21 Jun · 9:22 · £13.40</span>
+            </div>
+            <button class="pill-btn pill-btn--sm">Details</button>
+          </div>
+          <button class="btn btn--soft btn--block">View all trips</button>
+        </div>
+      </main>
+    </section>
+
+  </div>
+
+  <!-- prototype badge -->
+  <button class="proto" id="proto-reset" title="Restart prototype">Prototype · restart</button>
+</div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -114,7 +114,7 @@ a:has(img[src*="logo-horizontal-light"]){width:172px!important;height:38px!impor
 img[src*="logo-horizontal-light"]{object-fit:contain!important;object-position:left center!important;width:100%!important;height:100%!important}
 </style></head>'''
 html=html.replace("</head>",override,1)
-for s in ["about-us","taxi","services","pricing","reviews","drivers","cars-for-rental","contact-us"]:
+for s in ["about-us","taxi","services","pricing","reviews","drivers","contact-us"]:
     html=html.replace(f'href="./{s}"', f'href="./{s}.html"')
 
 # static-safe: prevent broken hydration from wiping SSR content + reveal entrance states

@@ -10,12 +10,11 @@ EMAIL = "bookings@cheshamtaxis.co.uk"
 # slug -> (Title, meta description, nav-active-key)
 PAGES = {
  "about-us":       ("About Us", "Meet Chesham Taxis — your friendly, reliable local taxi service across Chesham and the Chilterns.", "about"),
- "taxi":           ("Our Taxis", "Explore the Chesham Taxis fleet — saloons, estates, executive cars and people carriers for every journey.", "taxi"),
+ "taxi":           ("Our Taxis", "Explore the Chesham Taxis fleet — clean, comfortable saloons and estates for every journey.", "taxi"),
  "services":       ("Our Services", "Airport transfers, local rides, school runs, corporate accounts and more from Chesham Taxis.", "services"),
  "pricing":        ("Pricing & Fares", "Clear, fair, fixed-price taxi fares across Chesham, Buckinghamshire and beyond. No surge pricing.", "pricing"),
  "reviews":        ("Reviews", "See what Chesham locals say about their rides with Chesham Taxis.", "reviews"),
  "drivers":        ("Our Drivers", "DBS-checked, licensed, local drivers — and how to join the Chesham Taxis team.", "drivers"),
- "cars-for-rental":("Cars for Rental", "Flexible self-drive car rental from Chesham Taxis — daily, weekly and monthly.", "taxi"),
  "contact-us":     ("Contact & Book", "Book a taxi or get a quote from Chesham Taxis. Call, message or book online 24/7.", "contact"),
 }
 
@@ -41,13 +40,13 @@ def nav(active):
   <nav class="nav-links">{links}</nav>
   <div class="nav-cta">
    <a class="nav-phone" href="tel:{PHONE_TEL}">{phone_svg}{PHONE_DISPLAY}</a>
-   <a class="btn btn-accent" href="./contact-us.html">Book your ride</a>
+   <a class="btn btn-accent" href="./book/">Book your ride</a>
   </div>
   <button class="nav-toggle" aria-label="Open menu" onclick="document.getElementById('mnav').classList.toggle('open')">
    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
   </button>
  </div>
- <div class="nav-mobile" id="mnav">{mlinks}<a class="btn btn-accent" href="./contact-us.html">Book your ride</a></div>
+ <div class="nav-mobile" id="mnav">{mlinks}<a class="btn btn-accent" href="./book/">Book your ride</a></div>
 </header>'''
 
 def footer():
@@ -74,7 +73,6 @@ def footer():
     <li><a href="./services.html">Airport transfers</a></li>
     <li><a href="./services.html">Local &amp; town rides</a></li>
     <li><a href="./taxi.html">Our taxis</a></li>
-    <li><a href="./cars-for-rental.html">Cars for rental</a></li>
    </ul></div>
    <div><h4>Get in touch</h4><ul>
     <li><a href="tel:{PHONE_TEL}">{PHONE_DISPLAY}</a></li>
@@ -117,8 +115,8 @@ def build_home():
         print("  SKIP index (no content)"); return
     main=open(cpath,encoding="utf-8").read().strip()
     title="Chesham Taxis — Local Taxis &amp; Airport Transfers in Chesham"
-    desc="Friendly, reliable 24/7 taxis across Chesham, Amersham and the Chilterns. Fixed fares, airport transfers, local rides and executive cars. Call 01494 000000."
-    h=head(title,desc,"index").replace(f"<title>{title} · Chesham Taxis</title>", f"<title>{title}</title>")
+    desc="Friendly, reliable 24/7 taxis across Chesham, Amersham and the Chilterns. Fixed fares, airport transfers and local rides. Call 01494 000000."
+    h=head(title,desc,"index").replace(f"<title>{title} · Chesham Taxis</title>", f"<title>{title}</title>").replace(f'og:title" content="{title} · Chesham Taxis"', f'og:title" content="{title}"')
     html=h+nav("home")+"\n"+main+"\n"+footer()+SCRIPTS+"\n</body></html>"
     open(os.path.join(ROOT,"index.html"),"w",encoding="utf-8").write(html)
     print(f"  built index.html ({len(html)//1024}kb)")

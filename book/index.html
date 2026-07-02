@@ -17,7 +17,7 @@
   <aside class="stage__brand" aria-hidden="false">
     <a class="stage__back" href="../index.html">
       <svg viewBox="0 0 24 24" width="18" height="18"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Back to cheshamtaxis.co.uk
+      Back to Chesham Taxis
     </a>
     <div class="stage__brandmark">
       <span class="stage__kite"><svg viewBox="0 0 32 34" width="30" height="32"><path d="M16 1 L29 14 L16 23 L3 14 Z" fill="#DF450F"/><path d="M16 23 L12.5 33 M16 23 L19.5 32" stroke="#DF450F" stroke-width="1.7" stroke-linecap="round"/></svg></span>
@@ -139,20 +139,13 @@
 
         <div class="divider"><span>or</span></div>
 
-        <button class="btn btn--soft btn--block btn--icon">
+        <button class="btn btn--soft btn--block btn--icon" data-oauth="Google">
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#EA4335" d="M12 10.2v3.9h5.5c-.24 1.4-1 2.6-2.1 3.4l3.4 2.6c2-1.85 3.15-4.6 3.15-7.85 0-.76-.07-1.5-.2-2.2z"/><path fill="#4285F4" d="M12 22c2.85 0 5.24-.94 6.99-2.55l-3.4-2.6c-.94.63-2.15 1-3.59 1-2.76 0-5.1-1.86-5.93-4.37l-3.5 2.7C1.8 19.6 5.6 22 12 22z"/><path fill="#FBBC05" d="M6.07 13.48A6 6 0 0 1 5.75 12c0-.51.09-1.01.24-1.48l-3.5-2.7A10 10 0 0 0 2 12c0 1.6.38 3.1 1.06 4.42z"/><path fill="#34A853" d="M12 5.5c1.55 0 2.95.53 4.05 1.58l3-3C17.24 2.2 14.85 1.2 12 1.2 5.6 1.2 1.8 3.6.99 7.82l3.5 2.7C6.9 7.36 9.24 5.5 12 5.5z"/></svg>
           Continue with Google
         </button>
-        <button class="btn btn--soft btn--block btn--icon">
+        <button class="btn btn--soft btn--block btn--icon" data-oauth="Apple">
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="#000" d="M16.4 12.9c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.15-2.8.85-3.5.85-.7 0-1.9-.83-3.1-.8-1.6.02-3 .93-3.8 2.36-1.63 2.83-.42 7 1.16 9.3.77 1.12 1.7 2.38 2.9 2.33 1.16-.05 1.6-.75 3-.75s1.8.75 3 .73c1.24-.02 2.03-1.14 2.8-2.27.88-1.3 1.24-2.56 1.26-2.63-.03-.01-2.42-.93-2.44-3.66z"/><path fill="#000" d="M14.1 5.9c.64-.78 1.07-1.86.95-2.94-.92.04-2.03.61-2.69 1.39-.59.69-1.11 1.79-.97 2.85 1.02.08 2.07-.52 2.71-1.3z"/></svg>
           Continue with Apple
-        </button>
-
-        <div class="divider"><span>or</span></div>
-
-        <button class="btn btn--soft btn--block btn--icon">
-          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM16 14h4M14 16v4M18 18h2v2h-2z"/></svg>
-          Log in with QR code
         </button>
 
         <p class="fineprint">By proceeding, you consent to get calls, WhatsApp or SMS messages, including by automated means, from Chesham Taxis and its affiliates to the number provided.</p>
@@ -263,17 +256,56 @@
       <div class="ride-map" id="map-ride"></div>
       <div class="sheet">
         <div class="sheet__grip" aria-hidden="true"></div>
-        <h2 class="sheet__title">Get a ride</h2>
-        <div class="route route--tight">
-          <div class="route__line" aria-hidden="true"></div>
-          <label class="field field--route"><span class="dot dot--from"></span><input type="text" placeholder="Pickup location" value="Chesham Broadway" /></label>
-          <label class="field field--route"><span class="dot dot--to"></span><input type="text" placeholder="Dropoff location" /><button class="field__icon" aria-label="Add stop"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></label>
+
+        <div class="sheet__panel" data-panel="request">
+          <h2 class="sheet__title">Get a ride</h2>
+          <div class="route route--tight">
+            <div class="route__line" aria-hidden="true"></div>
+            <label class="field field--route"><span class="dot dot--from"></span><input type="text" placeholder="Pickup location" value="Chesham Broadway" id="ride-pickup" /></label>
+            <label class="field field--route"><span class="dot dot--to"></span><input type="text" placeholder="Dropoff location" id="ride-dropoff" /><button class="field__icon" aria-label="Add stop"><svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></label>
+          </div>
+          <div class="pickup-row">
+            <button class="chip chip--wide"><svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Pickup now <svg viewBox="0 0 24 24" width="14" height="14"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+            <button class="chip"><svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M5 20a7 7 0 0 1 14 0" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>For me <svg viewBox="0 0 24 24" width="14" height="14"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+          </div>
+          <button class="btn btn--primary btn--block" id="ride-search">Search</button>
         </div>
-        <div class="pickup-row">
-          <button class="chip chip--wide"><svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7.5V12l3 2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>Pickup now <svg viewBox="0 0 24 24" width="14" height="14"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
-          <button class="chip"><svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M5 20a7 7 0 0 1 14 0" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>For me <svg viewBox="0 0 24 24" width="14" height="14"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+
+        <div class="sheet__panel" data-panel="options" hidden>
+          <h2 class="sheet__title">Choose a ride</h2>
+          <div class="ride-opts">
+            <button class="ride-opt is-selected" data-name="Saloon" data-fare="£11.40" data-eta="4">
+              <img src="../assets/images/u2NBVQDvo9VEI2Rp8xQuKKeLKw.png" alt="" />
+              <span class="ride-opt__meta"><strong>Saloon</strong><span>Up to 4 · 4 min away</span></span>
+              <span class="ride-opt__price">£11.40</span>
+            </button>
+            <button class="ride-opt" data-name="Estate" data-fare="£13.20" data-eta="7">
+              <img src="../assets/images/knWAWdU24NjiHb7rikIGzr8Ym7U.png" alt="" />
+              <span class="ride-opt__meta"><strong>Estate</strong><span>Extra luggage · 7 min away</span></span>
+              <span class="ride-opt__price">£13.20</span>
+            </button>
+          </div>
+          <p class="fineprint fineprint--tight">Fixed fare, agreed before you travel. Card or cash.</p>
+          <button class="btn btn--primary btn--block" id="ride-confirm">Confirm Saloon · £11.40</button>
+          <button class="linkbtn linkbtn--center" id="ride-edit">Change pickup or dropoff</button>
         </div>
-        <button class="btn btn--primary btn--block" id="ride-search">Search</button>
+
+        <div class="sheet__panel" data-panel="driver" hidden>
+          <h2 class="sheet__title">Your driver is on the way</h2>
+          <div class="trip">
+            <div class="trip__ic"><svg viewBox="0 0 24 24" width="20" height="20"><path fill="#1a6f31" d="M5 11l1.4-4A2 2 0 0 1 8.3 5.6h7.4A2 2 0 0 1 17.6 7L19 11a2 2 0 0 1 2 2v3h-2v2h-2v-2H7v2H5v-2H3v-3a2 2 0 0 1 2-2z"/></svg></div>
+            <div class="trip__meta">
+              <strong id="driver-car">Dave · silver Saloon</strong>
+              <span id="driver-eta">KX21 TXI · arriving in 4 min</span>
+            </div>
+            <span class="ride-opt__price" id="driver-fare">£11.40</span>
+          </div>
+          <div class="pickup-row">
+            <button class="chip chip--wide"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call driver</button>
+            <button class="chip chip--wide"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Message</button>
+          </div>
+          <button class="btn btn--soft btn--block" id="ride-cancel">Cancel ride</button>
+        </div>
       </div>
     </section>
 

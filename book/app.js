@@ -30,7 +30,6 @@
     el.classList.add('is-active');
     el.querySelector('.scroll')?.scrollTo(0, 0);
     if (location.hash.slice(1) !== name) {
-      history.length ? history : 0;
       try { window.history.replaceState({}, '', '#' + name); } catch (e) {}
     }
     onEnter(name);
@@ -55,7 +54,7 @@
       const full = [state.first, state.last].filter(Boolean).join(' ') || 'there';
       $('#welcome-name').textContent = full;
       const initials = ((state.first[0] || 'A') + (state.last[0] || 'S')).toUpperCase();
-      $('#account-avatar').textContent = initials;
+      $$('.avatar').forEach(a => a.textContent = initials);
     }
   }
 
@@ -151,6 +150,13 @@
     setTimeout(() => (this.textContent = t), 1600);
   });
 
+  /* social sign-in skips OTP, like real OAuth would */
+  $$('[data-oauth]').forEach(b => b.addEventListener('click', () => {
+    state.contact = 'your ' + b.dataset.oauth + ' account';
+    state.isEmail = true;
+    show('name');
+  }));
+
   /* ---------------- NAME screen ---------------- */
   const first = $('#name-first'), last = $('#name-last'), nameNext = $('#name-next');
   function checkName() { nameNext.disabled = !(first.value.trim() && last.value.trim()); }
@@ -166,12 +172,55 @@
   termsCheck.addEventListener('change', () => termsNext.disabled = !termsCheck.checked);
   termsNext.addEventListener('click', () => show('account'));
 
-  /* ---------------- misc ---------------- */
-  $('#ride-search').addEventListener('click', function () {
-    const t = this.textContent; this.textContent = 'Finding your driver…';
-    this.disabled = true;
-    setTimeout(() => { this.textContent = t; this.disabled = false; }, 1800);
+  /* ---------------- RIDE screen: request → options → driver ---------------- */
+  let rideRoute = null;
+  function ridePanel(name) {
+    $$('.sheet__panel').forEach(p => { p.hidden = p.dataset.panel !== name; });
+    setTimeout(() => maps['map-ride']?.invalidateSize(), 60);
+  }
+  function showRideRoute() {
+    const map = maps['map-ride'];
+    if (!map) return;
+    if (!rideRoute) {
+      rideRoute = L.layerGroup([
+        L.marker(CHESHAM, { icon: pinIcon('#14181b') }),
+        L.marker(AMERSHAM, { icon: pinIcon('#df4510') }),
+        L.polyline([CHESHAM, AMERSHAM], { color: '#14181b', weight: 3, opacity: .85 })
+      ]).addTo(map);
+    }
+    map.fitBounds([CHESHAM, AMERSHAM], { padding: [30, 30] });
+  }
+  function selectedOpt() { return $('.ride-opt.is-selected'); }
+  $('#ride-search').addEventListener('click', () => {
+    const drop = $('#ride-dropoff');
+    if (!drop.value.trim()) drop.value = 'Amersham Station';
+    showRideRoute();
+    ridePanel('options');
   });
+  $$('.ride-opt').forEach(o => o.addEventListener('click', () => {
+    $$('.ride-opt').forEach(x => x.classList.remove('is-selected'));
+    o.classList.add('is-selected');
+    $('#ride-confirm').textContent = `Confirm ${o.dataset.name} · ${o.dataset.fare}`;
+  }));
+  $('#ride-edit').addEventListener('click', () => ridePanel('request'));
+  $('#ride-confirm').addEventListener('click', function () {
+    const o = selectedOpt();
+    this.textContent = 'Finding your driver…'; this.disabled = true;
+    setTimeout(() => {
+      this.textContent = `Confirm ${o.dataset.name} · ${o.dataset.fare}`; this.disabled = false;
+      $('#driver-car').textContent = `Dave · silver ${o.dataset.name}`;
+      $('#driver-eta').textContent = `KX21 TXI · arriving in ${o.dataset.eta} min`;
+      $('#driver-fare').textContent = o.dataset.fare;
+      ridePanel('driver');
+    }, 1700);
+  });
+  $('#ride-cancel').addEventListener('click', () => {
+    const map = maps['map-ride'];
+    if (map && rideRoute) { map.removeLayer(rideRoute); rideRoute = null; map.setView(CHESHAM, 14); }
+    ridePanel('request');
+  });
+
+  /* ---------------- misc ---------------- */
   $$('[data-locate]').forEach(b => b.addEventListener('click', e => {
     e.preventDefault();
     const inp = b.closest('.field')?.querySelector('input');
